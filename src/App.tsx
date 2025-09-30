@@ -16,6 +16,28 @@ const App: React.FC = () => {
     return 'light';
   });
 
+  const members = useMemo(() => {
+    const names = new Set<string>();
+    config.schedule.forEach((week) => {
+      Object.values(week.days).forEach((cell) => {
+        cell.split('+').forEach((name) => {
+          const trimmed = name.trim();
+          if (
+            trimmed &&
+            trimmed !== 'TODOS presencial (planificación)' &&
+            !/^TODOS/i.test(trimmed)
+          ) {
+            names.add(trimmed);
+          }
+        });
+      });
+    });
+    return Array.from(names).sort((a, b) => a.localeCompare(b, 'es'));
+  }, []);
+  const [selectedMember, setSelectedMember] = useState<string>(() => {
+    return members.includes('Agustín') ? 'Agustín' : (members[0] || '');
+  });
+
   useEffect(() => {
     const id = setInterval(() => setNow(new Date()), 60_000);
     return () => clearInterval(id);
@@ -35,6 +57,9 @@ const App: React.FC = () => {
     () => getCurrentAndNextWeekIndices(now, config.anchorDate),
     [now]
   );
+
+  const normalize = (str: string) => str.normalize('NFD').replace(/\p{Diacritic}/gu, '');
+  const selectedNorm = selectedMember ? normalize(selectedMember).toLowerCase() : null;
 
   return (
     <main className="app-main">
@@ -59,6 +84,36 @@ const App: React.FC = () => {
           {theme === 'dark' ? 'Dark' : 'Light'} mode
         </button>
       </header>
+
+      <nav className="app-member-tabs" aria-label="Members">
+        <ul style={{ display: 'flex', gap: '0.5rem', margin: '1rem 0', padding: 0, listStyle: 'none' }}>
+          {members.map((member) => {
+            const isActive = selectedMember === member;
+            return (
+              <li key={member}>
+                <button
+                  type="button"
+                  className={isActive ? 'app-member-tab app-member-tab-active' : 'app-member-tab'}
+                  aria-pressed={isActive}
+                  onClick={() => setSelectedMember(isActive ? members[0] : member)}
+                  style={{
+                    padding: '0.4rem 1rem',
+                    borderRadius: '0.375rem',
+                    border: isActive ? '1px solid var(--highlight-border)' : '1px solid var(--border-color)',
+                    background: isActive ? 'var(--highlight-bg)' : 'var(--btn-bg)',
+                    color: isActive ? 'var(--highlight-text)' : 'var(--btn-text)',
+                    fontWeight: 500,
+                    cursor: 'pointer',
+                    transition: 'all 0.15s',
+                  }}
+                >
+                  {member}
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+      </nav>
       <section className="app-table-section" aria-label="4-week rotation table">
         <div className="app-table-container">
           <table
@@ -91,16 +146,14 @@ const App: React.FC = () => {
                     <td className="app-cell app-cell-status" aria-label={status}>{status}</td>
                     {config.weekdays.map((d) => {
                       const cell = week.days[d] ?? '';
-                      const normalize = (str: string) => str.normalize('NFD').replace(/\p{Diacritic}/gu, '');
-                      const userNorm = normalize(config.user).toLowerCase();
                       const cellNorm = normalize(cell).toLowerCase();
-                      if (cellNorm.includes(userNorm)) {
-                        const regex = new RegExp(`(${config.user})`, 'giu');
+                      if (selectedNorm && cellNorm.includes(selectedNorm)) {
+                        const regex = new RegExp(`(${selectedMember})`, 'giu');
                         const parts = cell.split(regex);
                         return (
                           <td key={d} className="app-cell">
                             {parts.map((part, i) =>
-                              normalize(part).toLowerCase() === userNorm ? (
+                              normalize(part).toLowerCase() === selectedNorm ? (
                                 <span
                                   key={i}
                                   className={

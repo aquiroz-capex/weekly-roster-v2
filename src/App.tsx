@@ -40,7 +40,7 @@ const App: React.FC = () => {
     <main className="app-main">
       <header className="app-header">
         <div>
-          <h1 className="app-title">WeekRoster</h1>
+          <h1 className="app-title">Weekly Roster</h1>
           <p className="app-meta" aria-live="polite">
             Timezone: <span className="font-medium">{config.timezone}</span> · Current date: {now.toLocaleString('en-US', { timeZone: config.timezone })}
           </p>

@@ -1,0 +1,139 @@
+## Project Description (Starter Template)
+
+Fill in the following sections to describe the project. Keep content concise and actionable. Use short paragraphs and bullet lists.
+
+### Project Name
+- WeekRoster
+
+### One-line Summary
+- Know the office week roster every Sunday.
+
+### Context / Background
+- Personal/teams often have a 4-week office attendance rotation. Some months have 5 weeks, so the first week of a new month is not always "Type 1". I need a reliable, zero-cost way to know which week type is next, and to receive an automatic reminder every Sunday.
+
+### Objectives (Goals)
+- Send an automated message every Sunday with the upcoming week type.
+- Provide a simple page showing the current and next week types.
+- Operate entirely on free-tier infrastructure; no ongoing costs.
+- Minimal setup and maintenance.
+- Measure success by delivery reliability (≥99% Sundays delivered) and setup time (<30 minutes).
+
+### Non-Goals (Out of Scope)
+- HR/payroll integration.
+- Collecting personal data or complex scheduling preferences.
+- Native mobile apps.
+- Paid infrastructure/services.
+
+### Target Users / Personas
+- Individuals or small teams following a 4-week office rotation who need a weekly notification indicating which week type is next.
+
+### Requirements
+#### Functional Requirements
+- Determine the next week’s type based on a 4-week rotation and an anchor start date.
+- Handle months with 5 weeks without resetting to type 1 automatically.
+- Send an automated notification every Sunday at a configurable time and timezone.
+- Provide a minimal web view with current/next week types and calendar context.
+- Optional: manual override for exceptions (holidays) via repo config.
+
+#### Non-Functional Requirements
+- Free-tier only (hosting, scheduler, messaging).
+- Reliability: ≥99% weekly delivery; retries on transient failures.
+- Simplicity over complexity; minimal latency requirements.
+- Accessibility: basic semantic HTML; mobile-friendly.
+- Timezone support via configuration (timezone: `America/Santiago`).
+
+### Architecture Overview
+- Static site (current/next week view) hosted on GitHub Pages.
+- A scheduled workflow (GitHub Actions cron) runs every Sunday at 18:00 local time (America/Santiago) to compute the next week type and send a message via a free webhook/messaging API (Discord webhook primary).
+- Configuration stored in-repo (anchor date, timezone, channel/webhook).
+- No persistent backend required.
+
+#### Frontend
+- Minimal React + TypeScript single page showing current/next week types and a calendar glimpse. State derived from date utils and anchor config.
+- Note: React components with JSX should use `.tsx` extensions.
+
+#### Backend / Services (if applicable)
+- None required. Scheduling via GitHub Actions. Optional serverless function (Cloudflare Workers free-tier) for future interactive features.
+
+#### Data & Storage
+- No database. Config file in repo (e.g., `config/rotation.json`) defining `anchorDate`, `timezone`, `labels` for the 4 week types, and optional overrides (holiday exceptions).
+
+#### Integrations
+- Discord incoming webhook (primary) for Sunday notifications; optional Telegram Bot API or Slack webhook as alternatives.
+- GitHub Actions as scheduler, GitHub Pages for hosting.
+- Observability: Plan lightweight Grafana Cloud dashboards using frontend beacon events (page views, delivery status link clicks) in a future iteration.
+
+### Tech Stack
+- Frontend: React + TypeScript + Vite
+- Backend/Services: None (GitHub Actions workflow). Optional Cloudflare Workers for future.
+- Tooling: ESLint, Prettier, Vitest, GitHub Actions (CI + scheduled job)
+
+### Environments
+- Local: develop and preview the static site.
+- Production: GitHub Pages + scheduled GitHub Actions.
+- Secrets: Stored in GitHub repo secrets (e.g., `DISCORD_WEBHOOK_URL`; optionally `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`, or `SLACK_WEBHOOK_URL`).
+- Config: `config/rotation.json` in repo for non-secret settings (include `timezone: "America/Santiago"`, `sendTimeLocal: "18:00"`, `anchorDate: "2025-09-20"`).
+
+### Setup & Run
+- Prerequisites: Node 20+, pnpm or npm.
+- Install: `pnpm install` (or `npm install`).
+- Development: `pnpm dev` to run Vite dev server.
+- Build: `pnpm build` to produce static assets.
+- Testing: `pnpm test` for unit tests.
+- Configure: create `config/rotation.json` and set GitHub Secrets for the chosen messaging channel.
+  Example `config/rotation.json`:
+  {
+    "timezone": "America/Santiago",
+    "sendTimeLocal": "18:00",
+    "anchorDate": "2025-09-20",
+    "labels": ["Type 1", "Type 2", "Type 3", "Type 4"]
+  }
+
+### Deployment
+- CI: GitHub Actions builds and deploys to GitHub Pages on main branch.
+- Schedule: GitHub Actions cron runs the notifier script every Sunday; the workflow computes 18:00 local time (America/Santiago) and triggers accordingly (convert to UTC in schedule or gate inside the script).
+- Rollback: Revert commits to roll back site; disable/revert workflow if needed.
+
+### Security & Privacy
+- No PII stored; messages are generic week-type announcements.
+- Secrets stored in GitHub Secrets; least-privilege tokens.
+- Dependabot or equivalent for dependency updates.
+
+### Monitoring & Observability
+- Metrics: number of successful Sunday sends, failures, retries.
+- Logs: GitHub Actions logs for notifier runs; redact tokens.
+- Traces: N/A initially; optional frontend page load traces later.
+- Dashboards/Alerts: Basic GitHub Actions notifications; optional Grafana Cloud dashboard in future.
+
+### Risks & Assumptions
+- Risk: Messaging API changes rate limits or policies → Mitigation: support multiple channels (Telegram/Slack/Discord).
+- Risk: Timezone confusion → Mitigation: single config with explicit IANA timezone; show scheduled time in UI.
+- Assumption: 4 week types repeat indefinitely from an agreed anchor date.
+
+### Milestones & Timeline
+- v0: Compute week type and send Telegram message via GitHub Actions (Sunday cron).
+- v1: Static site with current/next week cards; GitHub Pages deploy.
+- v2: Slack/Discord webhook support; simple overrides for holidays.
+
+### Glossary
+- Week Type: one of four labels (Type 1–4) repeating in a fixed rotation.
+- Anchor Date: start date aligned to a known week type from which rotation is calculated.
+
+### Open Questions
+- Preferred notification channel: Discord (decided).
+- Exact Sunday send time: 18:00 local (decided). Timezone: America/Santiago (decided).
+- Anchor date and mapping to week type labels?
+- Do we need manual overrides for holidays/exceptions now or later?
+
+### Appendix / Links
+- TBA
+
+---
+
+### Cursor / AI Collaboration Notes
+- Use clear, skimmable sections and bullet lists.
+- Prefer `.tsx` for React components with JSX.
+- Plan Grafana Cloud integration for metrics, logs, traces from the frontend.
+- When asking the AI to implement, specify files like `app/components/Header.tsx` and describe the expected behavior and acceptance criteria.
+
+

@@ -1,0 +1,51 @@
+# Cursor Rules for WeekRoster V2
+
+## Scope
+- v1: Discord notifier via GitHub Actions (complete)
+- v2: React + TypeScript UI (Vite) that displays a 4-week table, highlights current and softly highlights next week type
+
+## Conventions
+- Use React + TypeScript; JSX files must use `.tsx`
+- Keep UI client-only; read static config from `config/rotation.json`
+- Timezone must respect IANA value from config (default `America/Santiago`)
+- Accessibility: semantic HTML, keyboard focusable, sufficient color contrast
+- Styling: lightweight CSS modules or scoped CSS-in-JS; avoid large UI kits
+- Lint/format: ESLint + Prettier; no lint errors on commit
+- Tests: Vitest + React Testing Library for critical date logic
+
+## UI Requirements (v2)
+- Render a 4-row table from `labels` in `config/rotation.json`
+- Compute current and next week types from `anchorDate` (strict 4-week rotation)
+- Highlight current week row (primary emphasis); next week row (secondary emphasis)
+- Show timezone and next send time (Sunday 18:00 local)
+- Mobile-friendly layout
+
+## Acceptance Criteria
+- Exactly one current and one next highlight given today’s date
+- Works offline (no network calls); loads static config
+- Handles 5-week months without resetting rotation
+- Passes ESLint/TypeScript; builds with `pnpm build`
+
+## File/Dir Guidance
+- `src/main.tsx` bootstraps React; `src/App.tsx` renders table
+- `src/lib/date.ts` contains rotation utilities with unit tests in `src/lib/date.test.ts`
+- `public/` for static assets; config stays in `config/rotation.json`
+
+## GitHub Actions
+- Add Pages build/deploy pipeline for UI once code is added
+
+## Notes
+- Prefer `.tsx` for components; annotate public APIs
+- Avoid deep nesting and complex conditionals; extract helpers
+ - Use only arrow function declarations across the codebase
+ - Avoid all code comments; prefer self-documenting names and clear structure
+
+## Project Structure
+- Do not place type declarations inside implementation files
+- Organize by:
+  - Component file
+  - Types file (e.g., `Component.types.ts` or `types.ts`)
+  - Test files (e.g., `Component.test.tsx` / `.test.ts`)
+  - Index file for exports (e.g., `index.ts`)
+
+

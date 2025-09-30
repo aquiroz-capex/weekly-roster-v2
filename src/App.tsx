@@ -10,8 +10,10 @@ const config = rotationConfig as RotationConfig;
 const App: React.FC = () => {
   const [now, setNow] = useState<Date>(new Date());
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {
-    if (typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      return 'dark';
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem('theme-mode');
+      if (stored === 'light' || stored === 'dark') return stored;
+      if (window.matchMedia('(prefers-color-scheme: dark)').matches) return 'dark';
     }
     return 'light';
   });
@@ -35,6 +37,10 @@ const App: React.FC = () => {
     return Array.from(names).sort((a, b) => a.localeCompare(b, 'es'));
   }, []);
   const [selectedMember, setSelectedMember] = useState<string>(() => {
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem('selected-member');
+      if (stored && members.includes(stored)) return stored;
+    }
     return members.includes('Agustín') ? 'Agustín' : (members[0] || '');
   });
 
@@ -50,8 +56,15 @@ const App: React.FC = () => {
       const body = document.body;
       const bodyBg = getComputedStyle(root).getPropertyValue('--body-bg');
       body.style.background = bodyBg;
+      localStorage.setItem('theme-mode', theme);
     }
   }, [theme]);
+
+  useEffect(() => {
+    if (selectedMember) {
+      localStorage.setItem('selected-member', selectedMember);
+    }
+  }, [selectedMember]);
 
   const { currentIndex, nextIndex } = useMemo(
     () => getCurrentAndNextWeekIndices(now, config.anchorDate),

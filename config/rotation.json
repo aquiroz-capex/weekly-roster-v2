@@ -1,6 +1,49 @@
 {
   "timezone": "America/Santiago",
+  "user": "Agustín",
   "sendTimeLocal": "18:00",
   "anchorDate": "2025-09-29",
-  "labels": ["Type 1", "Type 2", "Type 3", "Type 4"]
+  "weekdays": ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"],
+  "schedule": [
+    {
+      "week": 1,
+      "days": {
+        "Lunes": "David + Ariel",
+        "Martes": "Daniel + Agustín",
+        "Miércoles": "Miguel + Catalina",
+        "Jueves": "Daniel + Miguel",
+        "Viernes": "Ariel + Agustín + Catalina"
+      }
+    },
+    {
+      "week": 2,
+      "days": {
+        "Lunes": "David + Daniel",
+        "Martes": "Ariel + Miguel",
+        "Miércoles": "TODOS presencial (planificación)",
+        "Jueves": "Agustín + Catalina",
+        "Viernes": "Ariel + Catalina + Miguel"
+      }
+    },
+    {
+      "week": 3,
+      "days": {
+        "Lunes": "David + Agustín",
+        "Martes": "Daniel + Catalina",
+        "Miércoles": "Ariel + Miguel",
+        "Jueves": "Ariel + Daniel",
+        "Viernes": "Agustín + Miguel + Catalina"
+      }
+    },
+    {
+      "week": 4,
+      "days": {
+        "Lunes": "David + Miguel",
+        "Martes": "Ariel + Catalina",
+        "Miércoles": "TODOS presencial (planificación)",
+        "Jueves": "Daniel + Agustín",
+        "Viernes": "Ariel + Daniel + Miguel"
+      }
+    }
+  ]
 }

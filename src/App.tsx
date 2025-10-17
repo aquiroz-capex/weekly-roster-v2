@@ -7,7 +7,7 @@ import type { RotationConfig } from './lib/types';
 
 const config = rotationConfig as RotationConfig;
 
-const App: React.FC = () => {
+const App = () => {
   const [now, setNow] = useState<Date>(new Date());
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {
     if (typeof window !== 'undefined') {
@@ -78,7 +78,10 @@ const App: React.FC = () => {
     <main className="app-main">
       <header className="app-header">
         <div>
-          <h1 className="app-title">Weekly Roster</h1>
+          <h1 className="app-title" style={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
+            <img src="/logo-only-icon.png" alt="Logo" style={{height: '2rem', width: '2rem'}} />
+            Weekly Roster
+          </h1>
           <p className="app-meta" aria-live="polite">
             Timezone: <span className="font-medium">{config.timezone}</span> · Current date: {now.toLocaleString('en-US', { timeZone: config.timezone })}
           </p>

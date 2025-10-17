@@ -84,7 +84,8 @@ const App = () => {
             Weekly Roster
           </h1>
           <p className="app-meta" aria-live="polite">
-            Timezone: <span className="font-medium">{config.timezone}</span> · Current date: {now.toLocaleString('en-US', { timeZone: config.timezone })}
+            <span className="app-meta-tz">Timezone: <span className="font-medium">{config.timezone}</span></span>
+            <span className="app-meta-date">Current date: {now.toLocaleString('en-US', { timeZone: config.timezone })}</span>
           </p>
         </div>
         <button
@@ -103,7 +104,7 @@ const App = () => {
       </header>
 
       <nav className="app-member-tabs" aria-label="Members">
-        <ul style={{ display: 'flex', gap: '0.5rem', margin: '1rem 0', padding: 0, listStyle: 'none' }}>
+        <ul style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', margin: '1rem 0', padding: 0, listStyle: 'none' }}>
           {members.map((member) => {
             const isActive = selectedMember === member;
             return (

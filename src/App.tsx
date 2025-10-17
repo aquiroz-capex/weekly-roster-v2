@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import './app-theme.css';
 
 import { getCurrentAndNextWeekIndices } from './lib/date';
+import logo from './assets/logo-only-icon.png';
 import rotationConfig from '../config/rotation.json';
 import type { RotationConfig } from './lib/types';
 
@@ -79,7 +80,7 @@ const App = () => {
       <header className="app-header">
         <div>
           <h1 className="app-title" style={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
-            <img src="/logo-only-icon.png" alt="Logo" style={{height: '2rem', width: '2rem'}} />
+            <img src={logo} alt="Logo" style={{height: '2rem', width: '2rem'}} />
             Weekly Roster
           </h1>
           <p className="app-meta" aria-live="polite">

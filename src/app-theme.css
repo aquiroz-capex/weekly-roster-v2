@@ -77,6 +77,12 @@ body {
   transition: background 0.2s, color 0.2s;
 }
 
+@media (min-width: 700px) {
+  .app-main {
+  max-width: 1300px;
+  }
+}
+
 .app-header {
   margin-bottom: 1.5rem;
   display: flex;

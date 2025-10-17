@@ -53,6 +53,25 @@ Edit `config/rotation.json`:
 ### Running and Building
 - The UI is a static site. It will be built (`npm run build`) and can be deployed to GitHub Pages via CI.
 
+### Deploying to GitHub Pages
+
+1. Make sure your `vite.config.ts` is set up for GitHub Pages (set `base` to your repo name, e.g. `/weekly-roster-v2/`).
+2. Build the site:
+  ```sh
+  npm run build
+  ```
+3. Deploy to GitHub Pages:
+   - If using the included GitHub Actions workflow, push to `main` and the site will deploy automatically.
+   - Or, to deploy manually, you can use the provided script:
+     ```sh
+     npm run build
+     npm run deploy
+     ```
+   - (The `deploy` script uses `gh-pages -d dist`.)
+   - Your site will be available at `https://<your-username>.github.io/<repo-name>/`
+
+For more details, see the [Vite deployment guide](https://vitejs.dev/guide/static-deploy.html#github-pages).
+
 ### Testing
 - Run unit tests: `npm test`
 

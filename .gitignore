@@ -13,3 +13,4 @@ node_modules/.vite/
 .eslintcache
 *.tsbuildinfo
 *.log
+scripts/

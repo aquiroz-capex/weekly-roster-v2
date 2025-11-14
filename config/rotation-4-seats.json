@@ -1,0 +1,49 @@
+{
+  "timezone": "America/Santiago",
+  "user": "Agustín",
+  "sendTimeLocal": "18:00",
+  "anchorDate": "2025-09-29",
+  "weekdays": ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"],
+  "schedule": [
+    {
+      "week": 1,
+      "days": {
+        "Lunes": "David + Daniel + Ariel + Catalina",
+        "Martes": "Miguel + Agustín + Ariel + Catalina",
+        "Miércoles": "David + Daniel + Miguel + Agustín",
+        "Jueves": "Ariel + Catalina + Miguel + Agustín",
+        "Viernes": "Daniel + Ariel + Catalina + Miguel + Agustín"
+      }
+    },
+    {
+      "week": 2,
+      "days": {
+        "Lunes": "David + Ariel + Catalina + Agustín",
+        "Martes": "Daniel + Miguel + Agustín + Ariel",
+        "Miércoles": "TODOS presencial (planificación)",
+        "Jueves": "Daniel + Ariel + Miguel + Catalina",
+        "Viernes": "Daniel + Ariel + Catalina + Miguel + Agustín"
+      }
+    },
+    {
+      "week": 3,
+      "days": {
+        "Lunes": "David + Daniel + Miguel + Agustín",
+        "Martes": "Ariel + Catalina + Agustín + Miguel",
+        "Miércoles": "David + Daniel + Ariel + Catalina",
+        "Jueves": "Daniel + Miguel + Agustín + Catalina",
+        "Viernes": "Daniel + Ariel + Catalina + Miguel + Agustín"
+      }
+    },
+    {
+      "week": 4,
+      "days": {
+        "Lunes": "David + Ariel + Miguel + Catalina",
+        "Martes": "Daniel + Agustín + Ariel + Catalina",
+        "Miércoles": "TODOS presencial (planificación)",
+        "Jueves": "Daniel + Miguel + Agustín + Ariel",
+        "Viernes": "Daniel + Ariel + Catalina + Miguel + Agustín"
+      }
+    }
+  ]
+}

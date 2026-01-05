@@ -3,7 +3,7 @@ import './app-theme.css';
 
 import { getCurrentAndNextWeekIndices } from './lib/date';
 import logo from './assets/logo-only-icon.png';
-import rotationConfig from '../config/rotation-3-days-max.json'; 
+import rotationConfig from '../config/rotation-2-seats.json'; 
 import type { RotationConfig } from './lib/types';
 
 const config = rotationConfig as RotationConfig;

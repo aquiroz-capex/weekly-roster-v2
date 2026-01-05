@@ -4,45 +4,46 @@
   "sendTimeLocal": "18:00",
   "anchorDate": "2025-09-29",
   "weekdays": ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"],
+
   "schedule": [
     {
       "week": 1,
       "days": {
         "Lunes": "David + Ariel",
-        "Martes": "Daniel + Agustín",
-        "Miércoles": "Miguel + Catalina",
-        "Jueves": "Daniel + Miguel",
-        "Viernes": "Ariel + Agustín + Catalina"
+        "Martes": "Agustín + Catalina",
+        "Miércoles": "David + Miguel",
+        "Jueves": "Ariel + Miguel",
+        "Viernes": "Miguel + Agustín + Catalina"
       }
     },
     {
       "week": 2,
       "days": {
-        "Lunes": "David + Daniel",
-        "Martes": "Ariel + Miguel",
+        "Lunes": "David + Miguel",
+        "Martes": "Agustín + Catalina",
         "Miércoles": "TODOS presencial (planificación)",
-        "Jueves": "Agustín + Catalina",
-        "Viernes": "Ariel + Catalina + Miguel"
+        "Jueves": "Ariel + Catalina",
+        "Viernes": "Ariel + Agustín"
       }
     },
     {
       "week": 3,
       "days": {
         "Lunes": "David + Agustín",
-        "Martes": "Daniel + Catalina",
-        "Miércoles": "Ariel + Miguel",
-        "Jueves": "Ariel + Daniel",
-        "Viernes": "Agustín + Miguel + Catalina"
+        "Martes": "Miguel + Catalina",
+        "Miércoles": "David + Ariel",
+        "Jueves": "Agustín + Catalina",
+        "Viernes": "Ariel + Miguel + Agustín"
       }
     },
     {
       "week": 4,
       "days": {
-        "Lunes": "David + Miguel",
-        "Martes": "Ariel + Catalina",
+        "Lunes": "David + Ariel",
+        "Martes": "Miguel + Catalina",
         "Miércoles": "TODOS presencial (planificación)",
-        "Jueves": "Daniel + Agustín",
-        "Viernes": "Ariel + Daniel + Miguel"
+        "Jueves": "Agustín + Ariel",
+        "Viernes": "Catalina + Miguel"
       }
     }
   ]

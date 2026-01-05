@@ -48,7 +48,6 @@ Edit or add a config file in `config/`, for example `rotation-2-seats.json`:
 {
   "timezone": "America/Santiago",
   "user": "Agustín",
-  "sendTimeLocal": "18:00",
   "anchorDate": "2025-09-29",
   "weekdays": ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"],
   "schedule": [

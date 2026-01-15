@@ -5,7 +5,6 @@ type ScheduleItem  = {
 
 type RotationConfig = {
   timezone: string;
-  sendTimeLocal: string;
   anchorDate: string;
   user: string;
   weekdays: string[];

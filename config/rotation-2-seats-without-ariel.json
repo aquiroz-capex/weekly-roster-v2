@@ -8,20 +8,20 @@
     {
       "week": 1,
       "days": {
-        "Lunes": "David + Agustín",
+        "Lunes": "David",
         "Martes": "Agustín + Catalina",
         "Miércoles": "David + Miguel",
         "Jueves": "Miguel",
-        "Viernes": "Miguel + Catalina"
+        "Viernes": "Miguel + Agustín + Catalina"
       }
     },
     {
       "week": 2,
       "days": {
-        "Lunes": "David",
+        "Lunes": "David + Miguel",
         "Martes": "Agustín",
         "Miércoles": "TODOS presencial (planificación)",
-        "Jueves": "Miguel",
+        "Jueves": "Catalina",
         "Viernes": "Agustín + Catalina"
       }
     },
@@ -30,8 +30,8 @@
       "days": {
         "Lunes": "David + Agustín",
         "Martes": "Miguel + Catalina",
-        "Miércoles": "David + Catalina",
-        "Jueves": "Agustín",
+        "Miércoles": "David",
+        "Jueves": "Agustín + Catalina",
         "Viernes": "Miguel + Agustín"
       }
     },
@@ -39,9 +39,9 @@
       "week": 4,
       "days": {
         "Lunes": "David",
-        "Martes": "Catalina",
+        "Martes": "Miguel + Catalina",
         "Miércoles": "TODOS presencial (planificación)",
-        "Jueves": "Agustín + Miguel",
+        "Jueves": "Agustín",
         "Viernes": "Catalina + Miguel"
       }
     }

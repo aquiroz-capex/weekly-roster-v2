@@ -25,7 +25,7 @@ Know the office week rotation at a glance—now with a modernized UI and flexibl
 ## Prerequisites
 
 - Node 20+
-- npm
+- pnpm
 - A GitHub repository for this project
 
 ## Setup
@@ -33,11 +33,11 @@ Know the office week rotation at a glance—now with a modernized UI and flexibl
 1. Clone this repo and push to your GitHub account.
 2. Install dependencies:
    ```sh
-   npm install
+   pnpm install
    ```
 3. Start the local dev server:
    ```sh
-   npm run dev
+   pnpm run dev
    ```
 
 ## Configuration
@@ -68,22 +68,22 @@ Edit or add a config file in `config/`, for example `rotation-2-seats.json`:
 
 ## Running and Building
 
-- Start dev server: `npm run dev`
-- Run tests: `npm test`
-- Build static site: `npm run build`
+- Start dev server: `pnpm run dev`
+- Run tests: `pnpm test`
+- Build static site: `pnpm run build`
 
 ## Deploying to GitHub Pages
 
 1. Ensure `vite.config.ts` sets `base` to your repo name (e.g., `/weekly-roster-v2/`).
 2. Build the site:
    ```sh
-   npm run build
+   pnpm run build
    ```
 3. Deploy:
    - If using GitHub Actions, push to `main` and deployment is automatic.
    - Or, run:
      ```sh
-     npm run deploy
+     pnpm run deploy
      ```
    - (Uses `gh-pages -d dist`.)
    - Your site will be at `https://<your-username>.github.io/<repo-name>/`

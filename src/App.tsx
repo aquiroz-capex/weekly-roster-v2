@@ -1,10 +1,13 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import './app-theme.css';
 
-import { getCurrentAndNextWeekIndices } from './lib/date';
+import { getCurrentAndNextWeekIndices, getWeekIndexFromAnchor } from './lib/date';
 import logo from './assets/logo-only-icon.png';
-import rotationConfig from '../config/rotation-2-seats-with-erick-dev.json'; 
+import rotationConfig from '../config/rotation-2-seats-with-erick-dev.json';
 import type { RotationConfig } from './lib/types';
+import { Button } from './components/ui/button';
+import { Calendar } from './components/ui/calendar';
+import { Popover, PopoverContent, PopoverTrigger } from './components/ui/popover';
 
 const config = rotationConfig as RotationConfig;
 
@@ -72,6 +75,13 @@ const App = () => {
     [now]
   );
 
+  const [pickedDate, setPickedDate] = useState<Date | undefined>(undefined);
+  const [pickerOpen, setPickerOpen] = useState(false);
+  const pickedIndex = useMemo(
+    () => (pickedDate ? getWeekIndexFromAnchor(pickedDate, config.anchorDate) : null),
+    [pickedDate]
+  );
+
   const normalize = (str: string) => str.normalize('NFD').replace(/\p{Diacritic}/gu, '');
   const selectedNorm = selectedMember ? normalize(selectedMember).toLowerCase() : null;
 
@@ -102,6 +112,40 @@ const App = () => {
           {theme === 'dark' ? 'Dark' : 'Light'} mode
         </button>
       </header>
+
+      <div className="app-date-lookup">
+        <Popover open={pickerOpen} onOpenChange={setPickerOpen}>
+          <PopoverTrigger asChild>
+            <Button variant="outline" className="app-date-lookup-trigger">
+              {pickedDate
+                ? `Type for ${pickedDate.toLocaleDateString('en-US', { dateStyle: 'medium' })}`
+                : 'Check a date'}
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent align="start" className="app-date-lookup-content">
+            <Calendar
+              mode="single"
+              selected={pickedDate}
+              onSelect={(date) => {
+                setPickedDate(date);
+                setPickerOpen(false);
+              }}
+            />
+            {pickedDate && (
+              <button
+                type="button"
+                className="app-date-lookup-clear"
+                onClick={() => {
+                  setPickedDate(undefined);
+                  setPickerOpen(false);
+                }}
+              >
+                Clear
+              </button>
+            )}
+          </PopoverContent>
+        </Popover>
+      </div>
 
       <nav className="app-member-tabs" aria-label="Members">
         <ul style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', margin: '1rem 0', padding: 0, listStyle: 'none' }}>
@@ -152,12 +196,19 @@ const App = () => {
               {config.schedule.map((week, idx) => {
                 const isCurrent = idx === currentIndex;
                 const isNext = idx === nextIndex;
-                const rowClass = isCurrent
-                  ? 'app-row-current'
-                  : isNext
-                  ? 'app-row-next'
-                  : '';
-                const status = isCurrent ? 'Current' : isNext ? 'Next' : '';
+                const isPicked = idx === pickedIndex;
+                const rowClass = [
+                  isCurrent ? 'app-row-current' : isNext ? 'app-row-next' : '',
+                  isPicked ? 'app-row-picked' : '',
+                ]
+                  .filter(Boolean)
+                  .join(' ');
+                const status = [
+                  isCurrent ? 'Current' : isNext ? 'Next' : '',
+                  isPicked ? 'Picked' : '',
+                ]
+                  .filter(Boolean)
+                  .join(' / ');
                 return (
                   <tr key={week.week} className={rowClass}>
                     <td className="app-cell app-cell-week">Type {week.week}</td>
